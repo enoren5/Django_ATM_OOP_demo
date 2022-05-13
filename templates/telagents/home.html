@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Django ATM OOP Demo App</title>
     <link rel="stylesheet" href="style.css">
     <style>
         table.GeneratedTable {
@@ -33,16 +33,81 @@
 
   <body>
  {% block content %}
+
+<br><br><br>
+
+{% for data_obj in data %}
+<center>Client Name: {{data_obj.first_name}} {{data_obj.last_name}}
+<br>
+Interest Rate: {{data_obj.interest}} %
+<br>
+Account Number {{data_obj.account_number}}</center>
+{% endfor%}
+
+
+<br><br>
+<center>
+<form action="{% url 'index' %}" method="post"> {% csrf_token %}
+  
+  <!-- <label for="fname">Merchant Name:</label>
+    <input type="text" id="fname" name="fname"><br><br> -->
+  
+  <label for="amount">Amount:</label>
+  
+  <input type="number" id="amount" name="amount"><br><br>
+
+  <input type="submit" value="Deposit">
+  
+  <input type="submit" value="withdrawal">
+  
+</form>
+</center>
+<br><br>
+
+
+
 <!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+<center>
+<table class="GeneratedTable">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Timestamp</th>
+      <th>Trans ID #</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>New Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    {% for data_obj in data %}
+      <td>Cell</td>
+      <td>{{ data_obj.transaction_time_stamp }}</td>
+      <td>Cell</td>
+      <td>{{ data_obj.withdrawal }}</td>
+      <td>{{ data_obj.deposit }}</td>
+      <td>{{ data_obj.balance }}</td>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>
+<!-- Codes by Quackit.com -->
+
+
+  {% endblock %}
+</center>
+
+<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -
 <center>
 <table class="GeneratedTable">
   <thead>
     <tr>
       <th>Type</th>
-      <th>Account #</th>
       <th>Timestamp</th>
       <th>Trans ID #</th>
-      <th>Amount</th>
+      <th>Debit</th>
+      <th>Credit</th>
       <th>New Balance</th>
     </tr>
   </thead>
@@ -59,45 +124,6 @@
 </table></center>
 <!-- Codes by Quackit.com -->
 
-<br><br><br>
 
-{% for data_obj in data %}
-<center>Client Name: {{data_obj.first_name}} {{data_obj.last_name}}
-<br>
-Interest Rate:{{data_obj.interest}}
-<br>
-Account Number {{data_obj.account_number}}</center>
-{% endfor%}
-<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
-<center>
-<table class="GeneratedTable">
-    <thead>
-    <tr>
-      <th>Type</th>
-      <th>Account #</th>
-      <th>Timestamp</th>
-      <th>Trans ID #</th>
-      <th>Amount</th>
-      <th>New Balance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    {% for data_obj in data %}
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    {% endfor %}
-    </tr>
-  </tbody>
-</table>
-<!-- Codes by Quackit.com -->
-
-
-  {% endblock %}
-</center>
   </body>
 </html>
