@@ -1,9 +1,12 @@
 from django.shortcuts import render
-
+from telagents.models import Account
 # Create your views here.
 
 def index(request):
-    return render(request, "telagents/home.html")
+    #context = Account(request)
+    data = Account.objects.all().order_by('-inception_date')
+    context = {'data':data}
+    return render(request, "telagents/home.html", context)
 
 '''
     def deposit(self, amount):
