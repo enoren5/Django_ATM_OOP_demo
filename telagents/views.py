@@ -4,22 +4,18 @@ from telagents.models import Account
 
 def index(request):
     #context = Account(request)
-    balance = 0
-    withdrawal = 0
-    deposit = 0
-    amount = 0
+    balances = 0
+    withdrawals = 0
+    deposits = 0
+    amounts = 0
     data = Account.objects.all().order_by('-inception_date')
-    context = {'data':data,'withdrawal':withdrawal,'deposit':deposit,'amount':amount, 'balance': balance,} # initialize context var to be updated after math operations
-    if 'amount' in request.POST:
-        if 'deposit':   
-            balance = balance + amount
-       
-        if 'withdrawal' :
-            balance  = balance - amount
-            
-        context.update(
-            {'data':data,'withdrawal':withdrawal,'deposit':deposit,'amount':amount, 'balance': balance,}, 
-        )
+    context = {'data':data,'withdrawals':withdrawals,'deposits':deposits,'amount':amounts, 'balances': balances,} # initialize context var to be updated after math operations
+    if 'deposits' in request.POST:   
+        balances = balances + amounts
+        context.update({'balances': balances,})
+    elif 'withdrawals' in request.POST:
+        balances  = balances - amounts
+        context.update({'balance': balances,})    
     return render(request, "telagents/home.html", context)
 
 '''

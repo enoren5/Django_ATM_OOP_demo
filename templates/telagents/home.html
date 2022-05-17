@@ -34,18 +34,20 @@
   <body>
  {% block content %}
 
-<br><br><br>
+<br><br>
 
 {% for data_obj in data %}
-<center>Client Name: {{data_obj.first_name}} {{data_obj.last_name}}
-<br>
-Interest Rate: {{data_obj.interest}} %
-<br>
-Account Number {{data_obj.account_number}}</center>
+    <center>
+    Client Name : {{data_obj.first_name}} {{data_obj.last_name}}
+        <br>
+    Bank Account Number : {{data_obj.account_number}}
+        <br>        
+    Interest Rate : {{data_obj.interest}} %
+    </center>
 {% endfor%}
 
-
 <br><br>
+
 <center>
 <form action="{% url 'index' %}" method="post"> {% csrf_token %}
   
@@ -54,17 +56,15 @@ Account Number {{data_obj.account_number}}</center>
   
   <label for="amount">Amount:</label>
   
-  <input type="number" id="amount" name="amount"><br><br>
+  <input type="number" id="amount" name="amounts"><br><br>
 
-  <input type="submit" value="Deposit">
+  <input type="submit" value="Deposit" name="deposits">
   
-  <input type="submit" value="withdrawal">
+  <input type="submit" value="Withdraw"name="withdrawals">
   
 </form>
 </center>
-<br><br>
-
-
+<br>
 
 <!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
 <center>
@@ -74,21 +74,28 @@ Account Number {{data_obj.account_number}}</center>
       <th>Type</th>
       <th>Timestamp</th>
       <th>Trans ID #</th>
-      <th>Debit</th>
-      <th>Credit</th>
-      <th>New Balance</th>
+      <th>Debits</th>
+      <th>Credits</th>
+      <th>Running Balance</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-    {% for data_obj in data %}
+    
       <td>Cell</td>
+      
+      {% for data_obj in data %}
       <td>{{ data_obj.transaction_time_stamp }}</td>
+         {% endfor %}     
+      
       <td>Cell</td>
-      <td>{{ data_obj.withdrawal }}</td>
-      <td>{{ data_obj.deposit }}</td>
-      <td>{{ data_obj.balance }}</td>
-    {% endfor %}
+      
+      <td>{{ withdrawals }}</td>
+
+      <td>{{ deposits }}</td>
+      
+      <td>{{ balances }} </td>
+
     </tr>
   </tbody>
 </table>
