@@ -1,24 +1,41 @@
 from django.shortcuts import render
-from telagents.models import Account
+from django.http import HttpResponseRedirect,HttpResponse
+from .models import Account
 # Create your views here.
+from .forms import AmountForm
 
 def index(request):
-    #context = Account(request)
+    data = Account.objects.all().order_by('-inception_date')
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = AmountForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = AmountForm()
+
+    return render(request, 'telagents/home.html', {'form': form, 'data':data,})
+
+def process_transaction(request):
+    return HttpResponse('You are on the process transaction page')
+
+'''#context = Account(request)
     balances = 0
     withdrawals = 0
     deposits = 0
     amounts = 0
-    data = Account.objects.all().order_by('-inception_date')
+    
     context = {'data':data,'withdrawals':withdrawals,'deposits':deposits,'amount':amounts, 'balances': balances,} # initialize context var to be updated after math operations
-    if 'deposits' in request.POST:   
-        balances = balances + amounts
-        context.update({'balances': balances,})
-    elif 'withdrawals' in request.POST:
-        balances  = balances - amounts
-        context.update({'balance': balances,})    
     return render(request, "telagents/home.html", context)
 
-'''
+
     def deposit(self, amount):
         self.balance += round(Decimal(amount),2)
         self.transaction_id += randint(101,999) - randint(101,999) 
