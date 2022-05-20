@@ -57,21 +57,10 @@
     {{ form }}
   <input type="submit" value="Deposit" name="deposit" >
   <input type="submit" value="Withdraw" name="withdraw">
-  <!-- 
-  <label for="fname">Merchant Name:</label>
-    <input type="text" id="fname" name="fname"><br><br> -->
-  <!--- <label for="amount">Amount:</label>
-  <input id="amount" type="number" name="amount" maxlength="10" required> 
-  <br><br>
-  <input type="submit" value="Deposit" name="deposits">
-  <input type="submit" value="Withdraw"name="withdrawals">
-  -->
-  
 </form>
 </center>
 <br>
 
-<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
 <center>
 <table class="GeneratedTable">
     <thead>
@@ -86,56 +75,24 @@
   </thead>
   <tbody>
     <tr>
-    
+    {% for trans_objs in context %}
+      <td>Cell</td>
+            
       <td>Cell</td>
       
-      {% for data_obj in data %}
-      <td>{{ data_obj.transaction_time_stamp }}</td>
-         {% endfor %}     
-      
       <td>Cell</td>
       
-      <td>{{ withdraw }}</td>
+      <td>{{ trans_objs.withdraw }}</td>
 
-      <td>{{ deposit }}</td>
+      <td>{{ trans_objs.deposit }}</td>
       
-      <td>{{ balance }} </td>
-
+      <td>{{ trans_objs.balance }} </td>
+          {% endfor %}     
     </tr>
   </tbody>
 </table>
-<!-- Codes by Quackit.com -->
-
 
   {% endblock %}
 </center>
-
-<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -
-<center>
-<table class="GeneratedTable">
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Timestamp</th>
-      <th>Trans ID #</th>
-      <th>Debit</th>
-      <th>Credit</th>
-      <th>New Balance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-  </tbody>
-</table></center>
-<!-- Codes by Quackit.com -->
-
-
   </body>
 </html>
