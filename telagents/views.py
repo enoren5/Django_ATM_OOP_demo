@@ -7,6 +7,7 @@ from .forms import AmountForm
 def index(request):
     # Starting balance variable initialization:
     balance = 0 
+    context = {'balance': balance}
     # Import `Account` model data:
     data = Account.objects.all().order_by('-inception_date')
     # If this is a POST request we need to process the form data:
@@ -19,7 +20,6 @@ def index(request):
             deposit = form.cleaned_data['deposit']
             withdraw = form.cleaned_data['withdraw']
             amount = form.cleaned_data['amount']
-            context = {'balance': balance}
             if deposit:
                 balance = balance + amount
                 context.update({'balance': balance,})
