@@ -5,15 +5,17 @@ from .models import Account
 from .forms import AmountForm
 
 def index(request):
-    balance = 0
+    # Starting balance variable initialization:
+    balance = 0 
+    # Import `Account` model data:
     data = Account.objects.all().order_by('-inception_date')
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data:
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+        # Create a form instance and populate it with data from the request:
         form = AmountForm(request.POST)
-        # check whether it's valid:
+        # Check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
+            # Process the data in form.cleaned_data as required:
             deposit = form.cleaned_data['deposit']
             withdraw = form.cleaned_data['withdraw']
             amount = form.cleaned_data['amount']
@@ -24,14 +26,14 @@ def index(request):
             elif withdraw:
                 balance = balance - withdraw
                 context.update({'balance': balance,})
-            # redirect to a new URL:
+            # Redirect to a new URL:
             return render(request, 'telagents/home.html', {'form': form, 'data':data, 'context': context,})
 
-    # if a GET (or any other method) we'll create a blank form
+    # If a GET (or any other method) we'll create a blank form:
     else:
         form = AmountForm()
 
-    return render(request, 'telagents/home.html', {'form': form, 'data':data,})
+    return render(request, 'telagents/home.html', {'form': form, 'data':data, })
 
 ''' def process_transaction(request):
     return HttpResponse('You are on the process transaction page')
