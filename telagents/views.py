@@ -17,14 +17,14 @@ def index(request):
         # Check whether it's valid:
         if form.is_valid():
             # Process the data in form.cleaned_data as required:
-            deposit = form.cleaned_data['deposit']
-            withdraw = form.cleaned_data['withdraw']
             amount = form.cleaned_data['amount']
-            if deposit:
+            # deposit = form.cleaned_data['deposit']
+            # withdraw = form.cleaned_data['withdraw']            
+            if request.POST['transaction'] == 'Deposit':
                 balance = balance + amount
                 context.update({'balance': balance,})
-            elif withdraw:
-                balance = balance - withdraw
+            if request.POST['transaction'] == 'Withdraw':
+                balance = balance - amount
                 context.update({'balance': balance,})
             # Redirect to a new URL:
             return render(request, 'telagents/home.html', {'form': form, 'data':data, 'context': context,})

@@ -31,10 +31,10 @@
     </style>
   </head>
 
-  <body>
- {% block content %}
+ <body>
+  {% block content %}
 
-<br><br>
+    <br><br>
 
 {% for data_obj in data %}
     <center>
@@ -55,8 +55,8 @@
 
     {% csrf_token %}
     {{ form }}
-  <input type="submit" value="Deposit" name="deposit" >
-  <input type="submit" value="Withdraw" name="withdraw">
+  <input type="submit" value="Deposit" name="transaction" >
+  <input type="submit" value="Withdraw" name="transaction">
 </form>
 </center>
 <br>
@@ -92,7 +92,10 @@
   </tbody>
 </table>
 
-  {% endblock %}
 </center>
-  </body>
+
+{% endblock %}
+
+</body>
+
 </html>
