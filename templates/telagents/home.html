@@ -75,19 +75,16 @@
   </thead>
   <tbody>
     <tr>
+    
     {% for trans_objs in context %}
-      <td>Cell</td>
-            
-      <td>Cell</td>
-      
-      <td>Cell</td>
-      
+      <td>Cell</td>            
+      <td>Cell</td>      
+      <td>Cell</td>      
       <td>{{ trans_objs.withdraw }}</td>
-
-      <td>{{ trans_objs.deposit }}</td>
-      
+      <td>{{ trans_objs.deposit }}</td>      
       <td>{{ trans_objs.balance }} </td>
-          {% endfor %}     
+    {% endfor %}     
+
     </tr>
   </tbody>
 </table>
