@@ -11,6 +11,7 @@ def index(request):
     # Import `Account` model data:
     data = Account.objects.all().order_by('-inception_date')
     # If this is a POST request we need to process the form data:
+    print(request.POST)
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request:
         form = AmountForm(request.POST)
@@ -19,7 +20,7 @@ def index(request):
             # Process the data in form.cleaned_data as required:
             amount = form.cleaned_data['amount']
             # deposit = form.cleaned_data['deposit']
-            # withdraw = form.cleaned_data['withdraw']            
+            # withdraw = form.cleaned_data['withdraw']  
             if request.POST['transaction'] == 'Deposit':
                 balance = balance + amount
                 context.update({'balance': balance,})
