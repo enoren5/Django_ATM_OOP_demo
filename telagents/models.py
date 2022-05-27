@@ -5,13 +5,21 @@ import decimal
 from decimal import Decimal
 from random import randint
 from django.forms import ModelForm
+from .forms import AmountForm
 
 class Account(models.Model):
+    #### static data elements :
     interest = models.DecimalField(max_digits=6, decimal_places=3) # Decimal('0.005') # Percent
     inception_date = models.DateTimeField('Client since (inception date)')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     account_number = models.BigIntegerField()
+    #### interactivity data points :
+    debit = models.DecimalField(max_digits=12, decimal_places=2)
+    credit = models.DecimalField(max_digits=12, decimal_places=2)
+    balance = models.DecimalField(max_digits=12, decimal_places=2)
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    trans_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False)
 
     def client_since(self):
         # a = self.pub_date.timezone.now("US")
@@ -21,9 +29,13 @@ class Account(models.Model):
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}'s bank account."
-
+'''
 class Transactions(ModelForm):
-    pass
+    class Meta:
+        model = AmountForm
+        fields = ['debit', 'credit', 'balance', 'amount' ]
+'''     
+
 
 '''
     account_num = randint(9999999,99999999)

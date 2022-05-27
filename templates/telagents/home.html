@@ -76,12 +76,12 @@
   <tbody>
     <tr>
     
-    {% for trans_objs in balance %}
+    {% for trans_objs in data %}
       <td>Cell</td>            
+      <td>{{trans_objs.trans_timestamp}}</td>      
       <td>Cell</td>      
-      <td>Cell</td>      
-      <td>{{ trans_objs.withdraw }}</td>
-      <td>{{ trans_objs.deposit }}</td>      
+      <td>{{ trans_objs.debit }}</td>
+      <td>{{ trans_objs.credit }}</td>      
       <td>{{ trans_objs.balance }} </td>
     {% endfor %}     
 
