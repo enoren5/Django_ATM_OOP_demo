@@ -52,18 +52,16 @@
 
 <center>
 <form action="{% url 'index' %}" method="post"> 
-
     {% csrf_token %}
     {{ form }}
   <input type="submit" value="Deposit" name="transaction" >
   <input type="submit" value="Withdraw" name="transaction">
 </form>
 </center>
-<br>
 
 <center>
 <table class="GeneratedTable">
-    <thead>
+   <thead>
     <tr>
       <th>Type</th>
       <th>Timestamp</th>
@@ -74,23 +72,36 @@
       <th>Running Balance</th>
     </tr>
   </thead>
+  
   <tbody>
     <tr>
-    
     {% for trans_objs in data %}
       <td>(null)</td>            
       <td>{{ trans_objs.trans_timestamp }}</td>      
       <td>{{ trans_objs.trans_id }}</td>      
-      <td>ATM</td>
+      <td>Big Bank ATM</td>
       <td>{{ trans_objs.debit }}</td>
       <td>{{ trans_objs.credit }}</td>      
       <td>{{ trans_objs.balance }} </td>
     {% endfor %}     
-
     </tr>
   </tbody>
-</table>
+  
+  <tbody>
+    <tr>
+    {% for trans_objs in balance %}
+      <td>(null)</td>            
+      <td>(null)</td>      
+      <td>(null)</td>      
+      <td>ATM</td>
+      <td>(null)</td>
+      <td>(null)</td>      
+      <td>{{ trans_objs.amount }} </td>
+    {% endfor %}     
+    </tr>
+  </tbody>
 
+</table>
 </center>
 
 {% endblock %}

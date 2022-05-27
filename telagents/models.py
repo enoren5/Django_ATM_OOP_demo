@@ -29,13 +29,12 @@ class Account(models.Model):
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}'s bank account."
-'''
+
 class Transactions(ModelForm):
     class Meta:
-        model = AmountForm
-        fields = ['debit', 'credit', 'balance', 'amount',]
-'''     
-
+        model = Account
+        fields = ['amount',]
+ 
 
 '''
     account_num = randint(9999999,99999999)

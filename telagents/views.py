@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
-from .models import Account
+from .models import Account, Transactions
 # Create your views here.
 from .forms import AmountForm
 
@@ -14,7 +14,7 @@ def index(request):
     print(request.POST)
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request:
-        form = AmountForm(request.POST)
+        form = Transactions(request.POST)
         # Check whether it's valid:
         if form.is_valid():
             # Process the data in form.cleaned_data as required:
