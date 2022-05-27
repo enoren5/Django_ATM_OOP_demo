@@ -1,30 +1,30 @@
 from django.db import models
 from datetime import datetime
-#from pytz import timezone
+# from pytz import timezone
 import decimal
 from decimal import Decimal
 from random import randint
 from django.forms import ModelForm
-from .forms import AmountForm
+from telagents.forms import AmountForm
 
 class Account(models.Model):
-    #### static data elements :
-    interest = models.DecimalField(max_digits=6, decimal_places=3) # Decimal('0.005') # Percent
+    #### Static data elements :
+    interest = models.DecimalField(max_digits=6, decimal_places=3) # Percent
     inception_date = models.DateTimeField('Client since (inception date)')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     account_number = models.BigIntegerField()
-    #### interactivity data points :
+    #### Interactive and dynamic data points :
     debit = models.DecimalField(max_digits=12, decimal_places=2)
     credit = models.DecimalField(max_digits=12, decimal_places=2)
     balance = models.DecimalField(max_digits=12, decimal_places=2)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     trans_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False)
+    trans_id = models.BigIntegerField()
 
     def client_since(self):
         # a = self.pub_date.timezone.now("US")
-        # b = self.inception_date.strftime("%A %d %B %Y @ %I:%M:%S %p")
-        # c = pytz.timezone("US")
+        # b = pytz.timezone("US")
         return self.inception_date.strftime("%A %d %B %Y @ %I:%M:%S %p")
     
     def __str__(self):
@@ -33,7 +33,7 @@ class Account(models.Model):
 class Transactions(ModelForm):
     class Meta:
         model = AmountForm
-        fields = ['debit', 'credit', 'balance', 'amount' ]
+        fields = ['debit', 'credit', 'balance', 'amount',]
 '''     
 
 

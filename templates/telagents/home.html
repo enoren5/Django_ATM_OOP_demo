@@ -68,6 +68,7 @@
       <th>Type</th>
       <th>Timestamp</th>
       <th>Trans ID #</th>
+      <th>Merchant</th>
       <th>Debits</th>
       <th>Credits</th>
       <th>Running Balance</th>
@@ -77,9 +78,10 @@
     <tr>
     
     {% for trans_objs in data %}
-      <td>Cell</td>            
-      <td>{{trans_objs.trans_timestamp}}</td>      
-      <td>Cell</td>      
+      <td>(null)</td>            
+      <td>{{ trans_objs.trans_timestamp }}</td>      
+      <td>{{ trans_objs.trans_id }}</td>      
+      <td>ATM</td>
       <td>{{ trans_objs.debit }}</td>
       <td>{{ trans_objs.credit }}</td>      
       <td>{{ trans_objs.balance }} </td>
