@@ -19,8 +19,6 @@ def index(request):
         if form.is_valid():
             # Process the data in form.cleaned_data as required:
             amount = form.cleaned_data['amount']
-            # deposit = form.cleaned_data['deposit']
-            # withdraw = form.cleaned_data['withdraw']  
             if request.POST['transaction'] == 'Deposit':
                 balance = balance + amount
                 context.update({'balance': balance,})
