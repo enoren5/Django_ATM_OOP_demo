@@ -11,7 +11,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     client_since = models.DateTimeField('Client since')
-    access_card = models.IntegerField(max_length=16)
+    access_card = models.IntegerField(max_length=15, primary_key=True)
     PIN = models.IntegerField(max_length=4)
 
     def creation_date(self):
@@ -26,21 +26,20 @@ class BankAccount(models.Model):
     interest = models.DecimalField(max_digits=6, decimal_places=3) # Percent
     account_opened = models.DateTimeField('Inception date')
     transit_number = models.IntegerField(max_length=5)
-    account_number = models.BigIntegerField(max_length=6)   
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    account_number = models.BigIntegerField(max_length=6)
     
     def __str__(self):
         return f"{self.transit_number} / {self.account_number}"
 
 class Transaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    account = models.ForeignKey(BankAccount, on_delete=models.CASCADE)
     debit = models.DecimalField(max_digits=12, decimal_places=2)
     credit = models.DecimalField(max_digits=12, decimal_places=2)
     balance = models.DecimalField(max_digits=12, decimal_places=2)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     trans_timestamp = models.DateTimeField(auto_now=False, auto_now_add=False)
     trans_id = models.BigIntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account = models.ForeignKey(BankAccount, on_delete=models.CASCADE)
 
 '''
     class Meta:

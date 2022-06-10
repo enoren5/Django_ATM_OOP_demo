@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
-from .models import Account, Transactions
+from .models import BankAccount, User, Transaction
 # Create your views here.
 from .forms import AmountForm
 
@@ -9,12 +9,14 @@ def index(request):
     balance = 0 
     context = {'balance': balance}
     # Import `Account` model data:
-    data = Account.objects.all().order_by('-inception_date')
+    data1 = User.objects.all()
+    data2 = BankAccount.objects.all()
+    myaccount = Transaction.objects.get(id=1)
     # If this is a POST request we need to process the form data:
     print(request.POST)
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request:
-        form = Transactions(request.POST)
+        form = AmountForm(request.POST)
         # Check whether it's valid:
         if form.is_valid():
             # Process the data in form.cleaned_data as required:
@@ -25,8 +27,9 @@ def index(request):
             if request.POST['transaction'] == 'Withdraw':
                 balance = balance - amount
                 context.update({'balance': balance,})
-            # Redirect to a new URL:
-            return render(request, 'telagents/home.html', {'form': form, 'data':data, 'context': context,})
+            myaccount.balance = balance
+            myaccount.save()
+            return render(request, 'telagents/home.html', {'form': form, 'data1':data1, 'data2':data2, 'context': context,})
 
     # If a GET (or any other method) we'll create a blank form:
     else:

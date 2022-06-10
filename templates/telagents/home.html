@@ -36,18 +36,27 @@
 
     <br><br>
 
-{% for data_obj in data %}
+{% for data_obj in data1 %}
     <center>
     Client Name : {{data_obj.first_name}} {{data_obj.last_name}}
         <br>
+    Client Since : {{ data_obj.creation_date }}
+        <br>        
+
+{% endfor%}
+<br>
+<hr style="width:5%">
+{% for data_obj in data2 %}
+        <br>
+    Transit Account Number : {{data_obj.transit_number}}
+      <br>
     Bank Account Number : {{data_obj.account_number}}
         <br>
-    Client Since : {{ data_obj.inception_date }}
-        <br>        
     Interest Rate : {{data_obj.interest}} %
+        <br>
+    Opening Date : {{data_obj.account_opened}}
     </center>
 {% endfor%}
-
 <br><br>
 
 <center>
@@ -75,7 +84,7 @@
   
   <tbody>
     <tr>
-    {% for trans_objs in data %}
+    {% for trans_objs in data2 %}
       <td>(null)</td>            
       <td>{{ trans_objs.trans_timestamp }}</td>      
       <td>{{ trans_objs.trans_id }}</td>      
@@ -89,14 +98,14 @@
   
   <tbody>
     <tr>
-    {% for trans_objs in balance %}
+    {% for trans_objs in context %}
       <td>(null)</td>            
       <td>(null)</td>      
       <td>(null)</td>      
-      <td>ATM</td>
-      <td>(null)</td>
-      <td>(null)</td>      
-      <td>{{ trans_objs.amount }} </td>
+      <td>Big Bank ATM</td>
+      <td>{{trans_objs.debit}} </td>
+      <td>{{trans_objs.credit}} </td>      
+      <td>{{ trans_objs.balance }} </td>
     {% endfor %}     
     </tr>
   </tbody>
