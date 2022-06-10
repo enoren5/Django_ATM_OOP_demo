@@ -9,7 +9,8 @@ def index(request):
     balance = 0 
     context = {'balance': balance}
     # Import `Account` model data:
-    data = Account.objects.all().order_by('-inception_date')
+    data = Account.objects.all() #.order_by('-inception_date')
+    myaccount = Account.objects.get(id=1)#,last_name='Smith')
     # If this is a POST request we need to process the form data:
     print(request.POST)
     if request.method == 'POST':
@@ -17,6 +18,7 @@ def index(request):
         form = Transactions(request.POST)
         # Check whether it's valid:
         if form.is_valid():
+            print(form)
             # Process the data in form.cleaned_data as required:
             amount = form.cleaned_data['amount']
             if request.POST['transaction'] == 'Deposit':
@@ -25,6 +27,9 @@ def index(request):
             if request.POST['transaction'] == 'Withdraw':
                 balance = balance - amount
                 context.update({'balance': balance,})
+            myaccount.balance = balance
+            myaccount.save()
+            #form.save()
             # Redirect to a new URL:
             return render(request, 'telagents/home.html', {'form': form, 'data':data, 'context': context,})
 
