@@ -9,9 +9,9 @@ def index(request):
     balance = 0 
     context = {'balance': balance}
     # Import `Account` model data:
-    data1 = User.objects.all()
-    data2 = BankAccount.objects.all()
-    myaccount = Transaction.objects.get(id=1)
+    user_data = User.objects.all()
+    account_data = BankAccount.objects.all()
+    my_transaction_data = Transaction.objects.get(user=1)
     # If this is a POST request we need to process the form data:
     print(request.POST)
     if request.method == 'POST':
@@ -27,9 +27,9 @@ def index(request):
             if request.POST['transaction'] == 'Withdraw':
                 balance = balance - amount
                 context.update({'balance': balance,})
-            myaccount.balance = balance
-            myaccount.save()
-            return render(request, 'telagents/home.html', {'form': form, 'data1':data1, 'data2':data2, 'context': context,})
+            my_transaction_data.balance = balance
+            my_transaction_data.save()
+            return render(request, 'telagents/home.html', {'form': form, 'user_data':user_data, 'account_data':account_data, 'context': context,})
 
     # If a GET (or any other method) we'll create a blank form:
     else:

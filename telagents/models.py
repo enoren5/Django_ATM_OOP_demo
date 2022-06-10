@@ -8,11 +8,11 @@ from django.forms import ModelForm
 from telagents.forms import AmountForm
 
 class User(models.Model):
+    access_card = models.IntegerField(max_length=15, primary_key=True)
+    PIN = models.IntegerField(max_length=5 )
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     client_since = models.DateTimeField('Client since')
-    access_card = models.IntegerField(max_length=15, primary_key=True)
-    PIN = models.IntegerField(max_length=4)
 
     def creation_date(self):
         # a = self.pub_date.timezone.now("US")
@@ -23,10 +23,10 @@ class User(models.Model):
         return f"{self.first_name} {self.last_name}'s bank account."
     
 class BankAccount(models.Model):
+    account_number = models.IntegerField(max_length=6, primary_key=True)
     interest = models.DecimalField(max_digits=6, decimal_places=3) # Percent
     account_opened = models.DateTimeField('Inception date')
     transit_number = models.IntegerField(max_length=5)
-    account_number = models.BigIntegerField(max_length=6)
     
     def __str__(self):
         return f"{self.transit_number} / {self.account_number}"
