@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
-from .models import BankAccount, User, Transaction
+from .models import BankAccount, User, Ledger
 # Create your views here.
 from .forms import AmountForm
 
@@ -11,7 +11,7 @@ def index(request):
     # Import `Account` model data:
     user_data = User.objects.all()
     account_data = BankAccount.objects.all()
-    my_transaction_data = Transaction.objects.get(user=1)
+    my_transaction_data = Ledger.objects.get(id=1)
     # If this is a POST request we need to process the form data:
     print(request.POST)
     if request.method == 'POST':
@@ -35,7 +35,7 @@ def index(request):
     else:
         form = AmountForm()
 
-    return render(request, 'telagents/home.html', {'form': form, 'data':data, })
+    return render(request, 'telagents/home.html', {'form': form, 'user_data':user_data, 'account_data':account_data, 'context': context,})
 
 ''' def process_transaction(request):
     return HttpResponse('You are on the process transaction page')
